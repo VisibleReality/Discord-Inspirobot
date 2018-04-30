@@ -6,6 +6,8 @@ import discord
 from discord.ext import commands
 import urllib.request
 import io
+import os
+import random
 
 # Declare some variables
 userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0"
@@ -31,6 +33,13 @@ async def inspire(ctx):
 	image = urllib.request.urlopen(urllib.request.Request(path_response.read().decode("utf-8"),headers={"User-Agent":UserAgent}))
 	data = io.BytesIO(image.read())
 	await ctx.send(file=discord.File(data, fileUploadName))
+
+# Add a command which randomly picks one of the best images seen yet.
+@bot.command()
+async def bestof(ctx):
+	file = open(random.choice(os.listdir("inspirobot-bestof/")), "rb")
+	await ctx.send(file=discord.File((file, fileUploadName)))
+	file.close()
 
 # Removes the auto generated help command as it's not required
 bot.remove_command('help')
