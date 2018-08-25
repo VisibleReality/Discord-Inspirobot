@@ -34,12 +34,14 @@ async def inspire(ctx):
 	data = io.BytesIO(image.read())
 	await ctx.send(file=discord.File(data, fileUploadName))
 
-# Add a command which randomly picks one of the best images seen yet.
-@bot.command()
-async def bestof(ctx):
-	file = open(random.choice(os.listdir("inspirobot-bestof/")), "rb")
-	await ctx.send(file=discord.File((file, fileUploadName)))
-	file.close()
+@bot.event
+async def on_message(message):
+	# Check if the message is from Mee6
+	if message.author == get_user(159985870458322944):
+		channel = message.channel
+		await channel.send("^ Terrible Bot")
+	# Make sure other commands still work
+	await bot.process_commands(message)
 
 # Removes the auto generated help command as it's not required
 bot.remove_command('help')
