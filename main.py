@@ -30,7 +30,7 @@ async def on_ready():
 @bot.command()
 async def inspire(ctx):
 	path_response = urllib.request.urlopen(urllib.request.Request(apiUrl,headers={"User-Agent":userAgent}))
-	image = urllib.request.urlopen(urllib.request.Request(path_response.read().decode("utf-8"),headers={"User-Agent":UserAgent}))
+	image = urllib.request.urlopen(urllib.request.Request(path_response.read().decode("utf-8"),headers={"User-Agent":userAgent}))
 	data = io.BytesIO(image.read())
 	await ctx.send(file=discord.File(data, fileUploadName))
 
