@@ -34,15 +34,6 @@ async def inspire(ctx):
 	data = io.BytesIO(image.read())
 	await ctx.send(file=discord.File(data, fileUploadName))
 
-@bot.event
-async def on_message(message):
-	# Check if the message is from Mee6
-	if message.author == get_user(159985870458322944):
-		channel = message.channel
-		await channel.send("^ Terrible Bot")
-	# Make sure other commands still work
-	await bot.process_commands(message)
-
 # Removes the auto generated help command as it's not required
 bot.remove_command('help')
 
